@@ -1,7 +1,8 @@
-.gradle
+.gradle/
+.kotlin/
 **/build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/**/build/
 
-### IntelliJ IDEA ###
 /.idea/
+/kotlin-js-store/
