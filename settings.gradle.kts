@@ -10,5 +10,6 @@ plugins {
 }
 rootProject.name = "resource-specifications"
 
-includeBuild("lessons")
 includeBuild("backend")
+includeBuild("common-tests")
+includeBuild("common-libs")

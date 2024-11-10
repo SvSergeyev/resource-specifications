@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
 }
 
-group = "tech.sergeyev.resource-specifications"
+group = "tech.sergeyev.education"
 version = "0.0.1"
 
 repositories {

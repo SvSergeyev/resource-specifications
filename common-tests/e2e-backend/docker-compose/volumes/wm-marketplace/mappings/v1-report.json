@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/parts/report"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "report",
+      "result": "success",
+      "errors": [],
+      "id": "100",
+      "materials": {
+        "STEEL_PLATE_3": {
+          "quantity": 0.5,
+          "unit": "м2"
+        },
+        "ALUMINUM_PLATE_8_80": {
+          "quantity": 0.1,
+          "unit": "м2"
+        },
+        "COPPER_ROD_10": {
+          "quantity": 1.05,
+          "unit": "м"
+        }
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

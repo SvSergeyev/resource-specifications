@@ -1,0 +1,425 @@
+openapi: 3.0.4
+info:
+  title: "Educational project ${VERSION_APP}"
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: part
+    description: Деталь
+paths:
+  /parts/create:
+    post:
+      tags:
+        - part
+      summary: Create part
+      operationId: partCreate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartCreateResponse'
+  /parts/read:
+    post:
+      tags:
+        - part
+      summary: Read part
+      operationId: partRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartReadResponse'
+  /parts/update:
+    post:
+      tags:
+        - part
+      summary: Update part
+      operationId: partUpdate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartUpdateResponse'
+  /parts/delete:
+    post:
+      tags:
+        - part
+      summary: Delete part
+      operationId: partDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDeleteResponse'
+  /parts/search:
+    post:
+      tags:
+        - part
+      summary: Search part
+      operationId: partSearch
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartSearchRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartSearchResponse'
+  /parts/report:
+    post:
+      tags:
+        - part
+      summary: Get materials usage for part
+      operationId: partReport
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartReportRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartReportResponse'
+
+components:
+  schemas:
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дискриминатор для вычисления типа запроса
+          example: create
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/PartCreateRequest'
+          read:   '#/components/schemas/PartReadRequest'
+          update: '#/components/schemas/PartUpdateRequest'
+          delete: '#/components/schemas/PartDeleteRequest'
+          search: '#/components/schemas/PartSearchRequest'
+          report: '#/components/schemas/PartReportRequest'
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дискриминатор для вычисления типа запроса
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/PartCreateResponse'
+          read:   '#/components/schemas/PartReadResponse'
+          update: '#/components/schemas/PartUpdateResponse'
+          delete: '#/components/schemas/PartDeleteResponse'
+          search: '#/components/schemas/PartSearchResponse'
+          report: '#/components/schemas/PartReportResponse'
+
+    UserId:
+      type: string
+      description: Идентификатор пользователя
+    PartId:
+      type: string
+      description: Идентификатор детали
+    PartLock:
+      type: string
+      description: Версия оптимистичной блокировки
+
+    BasePart:
+      type: object
+      description: Объект описывает свойства, одинаковые для create и update
+      properties:
+        name:
+          type: string
+          description: Название детали
+        description:
+          type: string
+          description: Описание детали
+        materials:
+          type: object
+          description: Используемый материал (material.name -> count)
+          additionalProperties:
+            type: number
+            format: double
+
+
+    PartCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BasePart'
+
+    PartCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PartRequestDebug'
+        - type: object
+          properties:
+            part:
+              $ref: '#/components/schemas/PartCreateObject'
+
+    PartReadObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/PartId'
+
+    PartReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PartRequestDebug'
+        - type: object
+          properties:
+            part:
+              $ref: '#/components/schemas/PartReadObject'
+
+    PartUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/BasePart'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/PartId'
+            lock:
+              $ref: '#/components/schemas/PartLock'
+
+    PartUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PartRequestDebug'
+        - type: object
+          properties:
+            part:
+              $ref: '#/components/schemas/PartUpdateObject'
+
+    PartDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/PartId'
+            lock:
+              $ref: '#/components/schemas/PartLock'
+
+    PartDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PartRequestDebug'
+        - type: object
+          properties:
+            part:
+              $ref: '#/components/schemas/PartDeleteObject'
+
+    PartSearchFilter:
+      type: object
+      description: Набор фильтров для поиска
+      properties:
+        searchString:
+          type: string
+          description: Поисковая строка
+
+    PartSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PartRequestDebug'
+        - type: object
+          properties:
+            filter:
+              $ref: '#/components/schemas/PartSearchFilter'
+
+    PartReportRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/PartRequestDebug'
+        - type: object
+          properties:
+            part:
+              $ref: '#/components/schemas/PartReadObject'
+
+    PartResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BasePart'
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            id:
+              $ref: '#/components/schemas/PartId'
+            ownerId:
+              $ref: '#/components/schemas/UserId'
+            lock:
+              $ref: '#/components/schemas/PartLock'
+
+    PartResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом
+          properties:
+            part:
+              $ref: '#/components/schemas/PartResponseObject'
+
+    PartResponseMulti:
+      allOf:
+        - type: object
+          description: Список найденных объектов
+          properties:
+            parts:
+              type: array
+              items:
+                $ref: '#/components/schemas/PartResponseObject'
+
+    PartCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PartResponseSingle'
+
+    PartReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PartResponseSingle'
+
+    PartUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PartResponseSingle'
+
+    PartDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PartResponseSingle'
+
+    PartSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/PartResponseMulti'
+
+    PartReportResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - type: object
+          properties:
+            id:
+              type: string
+            materials:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  quantity:
+                    type: number
+                    format: double
+                  unit:
+                    type: string
+
+
+    # STUBS ======================
+    PartRequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+
+    PartRequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/PartDebug'
+
+    PartDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/PartRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/PartRequestDebugStubs'
+
+    PartRequestDebugStubs:
+      type: string
+      description: Перечисления всех стабов
+      enum:
+        - success
+        - notFound
+        - badId
+        - badName
+        - badDescription
+        - cannotDelete
+        - badSearchString

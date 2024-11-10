@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/parts/create"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "create",
+      "result": "success",
+      "part": {
+        "id": "123",
+        "name": "{{{jsonPath request.body '$.part.name'}}}",
+        "description": "Default description",
+        "materials": "{{{jsonPath request.body '$.part.materials'}}}"
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "transformers": [
+      "response-template"
+    ]
+  }
+}

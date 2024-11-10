@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/parts/search"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "search",
+      "result": "success",
+      "parts": [
+        {
+          "id": "123",
+          "name": "Stopper",
+          "description": "Stopper description",
+          "materials": "{\"STEEL_PLATE_3\": 0.5}"
+        },
+        {
+          "id": "124",
+          "name": "Sidewall",
+          "description": "Sidewall description",
+          "materials": "{\"ALUMINUM_PLATE_8_80\": 0.1}"
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
