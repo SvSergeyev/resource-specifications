@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/parts/read"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "read",
+      "result": "success",
+      "part": {
+        "id": "{{{jsonPath request.body '$.part.id'}}}",
+        "name": "Default name",
+        "description": "Default description",
+        "materials": "{\"STEEL_PLATE_3\": 0.5,\"ALUMINUM_PLATE_8_80\": 0.1,\"COPPER_ROD_10\": 1.05}"
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "transformers": [
+      "response-template"
+    ]
+  }
+}

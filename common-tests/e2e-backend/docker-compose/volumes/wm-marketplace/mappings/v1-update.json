@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/parts/update"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "update",
+      "result": "success",
+      "part": {
+        "id": "123",
+        "title": "Stopper",
+        "description": "Stopper description",
+        "materials": "{\"STEEL_PLATE_3\": 0.5}"
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

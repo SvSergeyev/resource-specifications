@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm") apply false
 }
 
-group = "tech.sergeyev.resource-specifications"
+group = "tech.sergeyev.education"
 version = "0.0.1"
 
 repositories {
