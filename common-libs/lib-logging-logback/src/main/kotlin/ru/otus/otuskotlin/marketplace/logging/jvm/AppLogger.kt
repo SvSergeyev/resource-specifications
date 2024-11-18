@@ -1,8 +1,5 @@
-package ru.otus.otuskotlin.marketplace.logging.jvm
-
 import ch.qos.logback.classic.Logger
 import org.slf4j.LoggerFactory
-import ru.otus.otuskotlin.marketplace.logging.common.ILogWrapper
 import kotlin.reflect.KClass
 
 /**

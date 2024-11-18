@@ -1,5 +1,3 @@
-package ru.otus.otuskotlin.marketplace.logging.jvm
-
 import org.slf4j.Marker
 
 /**

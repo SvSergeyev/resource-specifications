@@ -1,13 +1,9 @@
-package ru.otus.otuskotlin.marketplace.logging.jvm
-
 import ch.qos.logback.classic.Logger
 import net.logstash.logback.argument.StructuredArguments
 import org.slf4j.Marker
 import org.slf4j.event.KeyValuePair
 import org.slf4j.event.Level
 import org.slf4j.event.LoggingEvent
-import ru.otus.otuskotlin.marketplace.logging.common.ILogWrapper
-import ru.otus.otuskotlin.marketplace.logging.common.LogLevel
 import java.time.Instant
 
 class LogWrapperLogback(
