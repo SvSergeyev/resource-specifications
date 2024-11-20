@@ -35,4 +35,4 @@ include(":stubs")
 
 include(":app-common")
 include(":app-spring")
-//include(":new-app-spring")
+include(":app-rabbit")
