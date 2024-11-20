@@ -8,6 +8,12 @@ fun AppContext.toTransportPart(): IResponse = when (val cmd = command) {
     Command.DELETE -> toTransportDelete()
     Command.SEARCH -> toTransportSearch()
     Command.REPORT -> toTransportReport()
+    Command.INIT -> toTransportInit()
+    Command.FINISH -> object: IResponse {
+        override val responseType: String? = null
+        override val result: ResponseResult? = null
+        override val errors: List<Error>? = null
+    }
     Command.NONE -> throw UnknownCommand(cmd)
 }
 
@@ -50,6 +56,11 @@ fun AppContext.toTransportReport() = PartReportResponse(
             unit = material.unit
         )
     }.toMap()
+)
+
+fun AppContext.toTransportInit() = PartInitResponse(
+    result = state.toResult(),
+    errors = errors.toTransportErrors(),
 )
 
 fun List<Part>.toTransportPart(): List<PartResponseObject>? = this

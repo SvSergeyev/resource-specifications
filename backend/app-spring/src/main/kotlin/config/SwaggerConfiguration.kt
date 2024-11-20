@@ -1,4 +1,4 @@
-package config
+package tech.sergeyev.education.app.spring.config
 
 import org.springdoc.core.configuration.SpringDocConfiguration
 import org.springdoc.core.properties.SpringDocConfigProperties

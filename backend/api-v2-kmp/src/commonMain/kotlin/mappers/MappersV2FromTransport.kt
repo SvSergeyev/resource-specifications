@@ -99,7 +99,7 @@ private fun PartCreateObject.toInternal(): Part = Part(
     name = this.name ?: "",
     description = this.description ?: "",
     materials = this.materials?.mapNotNull { (materialDescription, quantity) ->
-        Material.fromName(materialDescription)?.let { material -> material to quantity }
+        Material.fromDescription(materialDescription)?.let { material -> material to quantity }
     }?.toMap() ?: mutableMapOf(),
 )
 
@@ -108,7 +108,7 @@ private fun PartUpdateObject.toInternal(): Part = Part(
     name = this.name ?: "",
     description = this.description ?: "",
     materials = this.materials?.mapNotNull { (materialDescription, quantity) ->
-        Material.fromName(materialDescription)?.let { material -> material to quantity }
+        Material.fromDescription(materialDescription)?.let { material -> material to quantity }
     }?.toMap() ?: mutableMapOf(),
     lock = lock.toPartLock(),
 )

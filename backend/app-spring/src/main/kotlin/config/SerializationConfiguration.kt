@@ -1,4 +1,4 @@
-package config
+package tech.sergeyev.education.app.spring.config
 
 import apiV2Mapper
 import org.springframework.context.annotation.Bean

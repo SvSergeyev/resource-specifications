@@ -1,17 +1,17 @@
-package controllers
+package tech.sergeyev.education.app.spring.controllers
 
-import config.AppSettings
 import controllerHelper
 import fromTransport
 import org.springframework.web.bind.annotation.*
 import tech.sergeyev.education.api.v1.models.*
+import tech.sergeyev.education.app.spring.base.AppSettings
 import toTransportPart
 import kotlin.reflect.KClass
 
 @Suppress("unused")
 @RestController
-@RequestMapping("v1/ad")
-class AdControllerV1Fine(
+@RequestMapping("v1/parts")
+class PartControllerV1Fine(
     private val appSettings: AppSettings
 ) {
 

@@ -31,7 +31,8 @@ suspend inline fun <T> IAppSettings.controllerHelper(
         logger.error(
             msg = "Request $logId failed for ${clazz.simpleName}",
             marker = "BIZ",
-            data = ctx.toLog(logId)
+            data = ctx.toLog(logId),
+            e = e,
         )
         ctx.state = State.FAILING
         ctx.errors.add(e.asPartError())

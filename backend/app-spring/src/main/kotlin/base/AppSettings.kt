@@ -1,4 +1,4 @@
-package config
+package tech.sergeyev.education.app.spring.base
 
 import CorSettings
 import IAppSettings

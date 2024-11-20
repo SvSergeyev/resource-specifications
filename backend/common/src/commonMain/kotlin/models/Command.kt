@@ -8,4 +8,6 @@ enum class Command {
     DELETE,
     SEARCH,
     REPORT,
+    INIT,
+    FINISH,
 }

@@ -11,15 +11,13 @@ class ResponseV2SerializationTest {
     private val response: IResponse = PartCreateResponse(
         part = PartResponseObject(
             name = "part name",
-            description = "ad description",
+            description = "part description",
             materials = mapOf(Material.STEEL_PLATE_3.description to 0.1)
         )
     )
 
     @Test
     fun serialize() {
-//        val json = apiV2Mapper.encodeToString(AdRequestSerializer1, request)
-//        val json = apiV2Mapper.encodeToString(RequestSerializers.create, request)
         val json = apiV2Mapper.encodeToString(response)
 
         println(json)

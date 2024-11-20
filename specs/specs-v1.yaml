@@ -184,7 +184,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-
       discriminator:
         propertyName: responseType
         mapping:
@@ -194,6 +193,7 @@ components:
           delete: '#/components/schemas/PartDeleteResponse'
           search: '#/components/schemas/PartSearchResponse'
           report: '#/components/schemas/PartReportResponse'
+          init: '#/components/schemas/PartInitResponse'
 
     UserId:
       type: string
@@ -222,6 +222,9 @@ components:
             type: number
             format: double
 
+    PartInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
 
     PartCreateObject:
       allOf:

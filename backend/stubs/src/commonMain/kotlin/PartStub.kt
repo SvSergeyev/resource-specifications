@@ -17,6 +17,8 @@ object PartStub {
         searchPart("d-666-06", filter),
     )
 
+    fun prepareReport() = report(STUB_PLATE)
+
     private fun searchPart(id: String, filter: String) =
         part(STUB_PLATE, id = id, filter = filter)
 
@@ -25,6 +27,10 @@ object PartStub {
         name = "$filter $id",
         description = "desc $filter $id",
         materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
+    )
+
+    private fun report(base: Part) = base.copy(
+        materials = base.getMaterialsUsage(),
     )
 
 }

@@ -64,7 +64,7 @@ class MapperUpdateTest {
 
         assertEquals("12345", req.part?.id)
         assertEquals("456789", req.part?.lock)
-        assertEquals("title", req.part?.name)
+        assertEquals("name", req.part?.name)
         assertEquals("desc", req.part?.description)
         assertEquals(1, req.part?.materials?.size)
         assertEquals(1, req.errors?.size)

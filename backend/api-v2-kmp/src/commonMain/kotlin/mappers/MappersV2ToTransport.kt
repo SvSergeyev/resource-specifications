@@ -13,6 +13,8 @@ fun AppContext.toTransportPart(): IResponse = when (val cmd = command) {
     Command.DELETE -> toTransportDelete()
     Command.SEARCH -> toTransportSearch()
     Command.REPORT -> toTransportReport()
+    Command.INIT -> toTransportInit()
+    Command.FINISH -> throw UnknownCommand(cmd)
     Command.NONE -> throw UnknownCommand(cmd)
 }
 
@@ -31,13 +33,14 @@ fun AppContext.toTransportRead() = PartReadResponse(
 fun AppContext.toTransportUpdate() = PartUpdateResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
-    part = partResponse.toTransportPart()
+    part = partResponse.toTransportPart(),
 )
 
 fun AppContext.toTransportDelete() = PartDeleteResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
-    part = partResponse.toTransportPart()
+    part = partResponse.toTransportPart(),
+
 )
 
 fun AppContext.toTransportSearch() = PartSearchResponse(
@@ -57,6 +60,11 @@ fun AppContext.toTransportReport() = PartReportResponse(
     }.toMap()
 )
 
+fun AppContext.toTransportInit() = PartInitResponse(
+    result = state.toResult(),
+    errors = errors.toTransportErrors(),
+)
+
 fun List<Part>.toTransportPart(): List<PartResponseObject>? = this
     .map { it.toTransportPart() }
     .toList()
@@ -68,6 +76,7 @@ private fun Part.toTransportPart(): PartResponseObject = PartResponseObject(
     description = description.takeIf { it.isNotBlank() },
     ownerId = ownerId.takeIf { it != UserId.NONE }?.asString(),
     materials = materials.map { (material, quantity) -> material.description to quantity }.toMap(),
+    lock = lock.takeIf { it != PartLock.NONE }?.asString()
 )
 
 private fun List<PartError>.toTransportErrors(): List<Error>? = this
