@@ -10,7 +10,7 @@
       "result": "success",
       "part": {
         "id": "123",
-        "title": "Stopper",
+        "name": "Stopper",
         "description": "Stopper description",
         "materials": "{\"STEEL_PLATE_3\": 0.5}"
       }

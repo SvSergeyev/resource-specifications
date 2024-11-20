@@ -1,5 +1,6 @@
+package fixture.docker
+
 import co.touchlab.kermit.Logger
-import fixture.docker.DockerCompose
 import io.ktor.http.*
 import org.testcontainers.containers.DockerComposeContainer
 import java.io.File

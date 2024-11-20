@@ -23,4 +23,6 @@ data class Part(
         private val NONE = Part()
     }
 
+    fun deepCopy(): Part = copy()
+
 }

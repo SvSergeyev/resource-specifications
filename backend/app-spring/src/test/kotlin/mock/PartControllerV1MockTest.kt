@@ -24,7 +24,7 @@ import toTransportSearch
 import toTransportUpdate
 import kotlin.test.Test
 
-// Temporary simple test with stubs
+// Temporary simple test with general.stubs.stubs
 @WebFluxTest(PartControllerV1Fine::class, PartConfig::class)
 internal class PartControllerV1MockTest {
     @Autowired
@@ -84,7 +84,7 @@ internal class PartControllerV1MockTest {
     fun partReport() = testStubPart(
         "/v1/parts/report",
         PartReportRequest(),
-        AppContext(partResponse = PartStub.prepareReport())
+        AppContext(partResponse = PartStub.prepareReport(PartStub.get()))
             .toTransportReport().copy(responseType = "report")
     )
 

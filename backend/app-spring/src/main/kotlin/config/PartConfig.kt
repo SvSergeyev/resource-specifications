@@ -1,9 +1,9 @@
 package tech.sergeyev.education.app.spring.config
 
 import CorSettings
-import LoggerProvider
+import tech.sergeyev.education.logging.common.LoggerProvider
 import PartProcessor
-import mpLoggerLogback
+import tech.sergeyev.education.logging.jvm.mpLoggerLogback
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import tech.sergeyev.education.app.spring.base.AppSettings
