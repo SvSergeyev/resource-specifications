@@ -1,5 +1,3 @@
-package ru.otus.otuskotlin.marketplace.logging.common
-
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
 

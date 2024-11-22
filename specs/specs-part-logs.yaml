@@ -1,0 +1,95 @@
+openapi: 3.0.4
+info:
+  title: App log models
+  description: Log models for logging services
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+paths: {}
+
+components:
+  schemas:
+    CommonLogModel:
+      title: Общая модель лога
+      description: Общая модель лога для всех микросервисов системы
+      type: object
+      properties:
+        messageTime:
+          type: string
+        logId:
+          type: string
+        source:
+          type: string
+        part:
+          $ref: '#/components/schemas/PartLogModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorLogModel'
+
+    PartLogModel:
+      title: Модель лога для микросервиса
+      type: object
+      properties:
+        requestId:
+          type: string
+        operation:
+          type: string
+          enum:
+            - create
+            - read
+            - update
+            - delete
+            - search
+            - report
+            - init
+            - finish
+        requestPart:
+          $ref: '#/components/schemas/PartLog'
+        requestFilter:
+          $ref: '#/components/schemas/PartFilterLog'
+        responsePart:
+          $ref: '#/components/schemas/PartLog'
+        responseParts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartLog'
+
+    ErrorLogModel:
+      title: Модель лога для ошибки
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        code:
+          type: string
+        level:
+          type: string
+
+    PartLog:
+      title: Модель лога для part
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        materials:
+          type: object
+          description: Используемый материал (material.name -> count)
+          additionalProperties:
+            type: number
+            format: double
+
+    PartFilterLog:
+      title: Модель лога фильтра
+      properties:
+        searchString:
+          type: string
+        ownerId:
+          type: string

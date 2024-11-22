@@ -12,6 +12,7 @@ kotlin {
                 implementation(kotlin("stdlib-common"))
 
                 api(libs.kotlinx.datetime)
+                api("tech.sergeyev.education.libs:lib-logging-common")
             }
         }
         val commonTest by getting {

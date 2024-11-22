@@ -1,8 +1,5 @@
-package ru.otus.otuskotlin.marketplace.logging
-
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
-import ru.otus.otuskotlin.marketplace.logging.jvm.mpLoggerLogback
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import kotlin.test.Test

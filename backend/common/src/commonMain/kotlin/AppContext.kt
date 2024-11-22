@@ -2,6 +2,7 @@ import kotlinx.datetime.Instant
 import models.*
 import stubs.Stubs
 import tech.sergeyev.education.api.v1.models.PartError
+import ws.IWsSession
 
 data class AppContext(
     var command: Command = Command.NONE,
@@ -10,6 +11,8 @@ data class AppContext(
 
     var workMode: WorkMode = WorkMode.PROD,
     var stubCase: Stubs = Stubs.NONE,
+    var wsSession: IWsSession = IWsSession.NONE,
+
 
     var requestId: RequestId = RequestId.NONE,
     var timeStart: Instant = Instant.NONE,
