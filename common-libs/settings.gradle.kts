@@ -26,3 +26,4 @@ plugins {
 
 include(":lib-logging-common")
 include(":lib-logging-logback")
+include(":lib-cor")

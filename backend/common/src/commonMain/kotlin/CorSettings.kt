@@ -1,3 +1,4 @@
+import tech.sergeyev.education.logging.common.LoggerProvider
 import ws.IWsSessionRepo
 
 data class CorSettings(

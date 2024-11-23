@@ -1,6 +1,6 @@
 package tech.sergeyev.education.app.rabbit.controllers
 
-import LoggerProvider
+import tech.sergeyev.education.logging.common.LoggerProvider
 import com.rabbitmq.client.*
 import kotlinx.coroutines.*
 import tech.sergeyev.education.app.rabbit.config.RabbitConfig

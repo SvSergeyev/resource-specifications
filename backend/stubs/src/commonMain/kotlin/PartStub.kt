@@ -17,7 +17,7 @@ object PartStub {
         searchPart("d-666-06", filter),
     )
 
-    fun prepareReport() = report(STUB_PLATE)
+    fun prepareReport(base: Part): Part = report(base)
 
     private fun searchPart(id: String, filter: String) =
         part(STUB_PLATE, id = id, filter = filter)
