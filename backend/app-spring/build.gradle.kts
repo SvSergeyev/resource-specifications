@@ -35,10 +35,19 @@ dependencies {
     // biz
     implementation(project(":biz"))
 
+    // DB
+    implementation(projects.repoStubs)
+    implementation(projects.repoInmemory)
+    implementation(projects.repoPostgres)
+    testImplementation(projects.repoCommon)
+    testImplementation(projects.stubs)
+
+
     // tests
     testImplementation(kotlin("test-junit5"))
     testImplementation(libs.spring.test)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.spring.mockk)
 
     // stubs
     testImplementation(project(":stubs"))

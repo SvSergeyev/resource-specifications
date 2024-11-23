@@ -3,7 +3,7 @@ package stubs
 import AppContext
 import helpers.fail
 import models.State
-import tech.sergeyev.education.api.v1.models.PartError
+import models.PartError
 import tech.sergeyev.education.cor.ICorChainDsl
 import tech.sergeyev.education.cor.worker
 

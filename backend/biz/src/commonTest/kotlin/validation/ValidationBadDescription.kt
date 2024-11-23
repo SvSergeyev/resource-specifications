@@ -8,20 +8,12 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-private val stub = PartStub.get()
-
 fun validationDescriptionCorrect(command: Command, processor: PartProcessor) = runTest {
     val ctx = AppContext(
         command = command,
         state = State.NONE,
         workMode = WorkMode.TEST,
-        partRequest = Part(
-            id = stub.id,
-            name = "abc",
-            description = "abc",
-            materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
-            lock = PartLock("123-234-abc-ABC"),
-        ),
+        partRequest = PartStub.get()
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -34,13 +26,9 @@ fun validationDescriptionTrim(command: Command, processor: PartProcessor) = runT
         command = command,
         state = State.NONE,
         workMode = WorkMode.TEST,
-        partRequest = Part(
-            id = stub.id,
-            name = "abc",
-            description = " \n\tabc \n\t",
-            materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
-            lock = PartLock("123-234-abc-ABC"),
-        ),
+        partRequest = PartStub.prepareResult {
+            description = " \n\tabc \n\t"
+        },
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -53,13 +41,9 @@ fun validationDescriptionEmpty(command: Command, processor: PartProcessor) = run
         command = command,
         state = State.NONE,
         workMode = WorkMode.TEST,
-        partRequest = Part(
-            id = stub.id,
-            name = "abc",
-            description = "",
-            materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
-            lock = PartLock("123-234-abc-ABC"),
-        ),
+        partRequest = PartStub.prepareResult {
+            description = ""
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
@@ -74,13 +58,9 @@ fun validationDescriptionSymbols(command: Command, processor: PartProcessor) = r
         command = command,
         state = State.NONE,
         workMode = WorkMode.TEST,
-        partRequest = Part(
-            id = stub.id,
-            name = "abc",
-            description = "!@#$%^&*(),.{}",
-            materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
-            lock = PartLock("123-234-abc-ABC"),
-        ),
+        partRequest = PartStub.prepareResult {
+            description = "!@#$%^&*(),.{}"
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)

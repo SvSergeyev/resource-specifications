@@ -74,21 +74,22 @@ private fun Part.toTransportPart(): PartResponseObject = PartResponseObject(
     description = description.takeIf { it.isNotBlank() },
     ownerId = ownerId.takeIf { it != UserId.NONE }?.asString(),
     materials = materials.map { (material, quantity) -> material.description to quantity }.toMap(),
+    lock = lock.takeIf { it != PartLock.NONE }?.asString()
 )
 
-private fun List<PartError>.toTransportErrors(): List<Error>? = this
+internal fun List<PartError>.toTransportErrors(): List<Error>? = this
     .map { it.toTransportPart() }
     .toList()
     .takeIf { it.isNotEmpty() }
 
-private fun PartError.toTransportPart() = Error(
+internal fun PartError.toTransportPart() = Error(
     code = code.takeIf { it.isNotBlank() },
     group = group.takeIf { it.isNotBlank() },
     field = field.takeIf { it.isNotBlank() },
     message = message.takeIf { it.isNotBlank() },
 )
 
-private fun State.toResult(): ResponseResult? = when (this) {
+internal fun State.toResult(): ResponseResult? = when (this) {
     State.RUNNING -> ResponseResult.SUCCESS
     State.FAILING -> ResponseResult.ERROR
     State.FINISHING -> ResponseResult.SUCCESS

@@ -17,6 +17,8 @@ kermit = "2.0.3"
 #Frameworks
 ktor = "2.3.9"
 spring-boot = "3.2.0"
+liquibase = "4.27.0"
+exposed = "0.50.0"
 
 #Testing
 testcontainers = "1.19.7"
@@ -38,6 +40,7 @@ coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "coroutines" }
 coroutines-reactive = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive", version.ref = "coroutines" }
 cor = { module = "tech.sergeyev.education.libs:lib-cor" }
+uuid = "com.benasher44:uuid:0.8.4"
 
 jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 jackson-datatype = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
@@ -60,9 +63,23 @@ spring-actuator = { module = "org.springframework.boot:spring-boot-starter-actua
 spring-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
 spring-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version = "2.3.0" }
 spring-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-mockk = "com.ninja-squad:springmockk:4.0.2"
 
 # Message Queues
 rabbitmq-client = { module = "com.rabbitmq:amqp-client", version = "5.20.0" }
+
+# Databases
+db-cache4k = "io.github.reactivecircus.cache4k:cache4k:0.13.0"
+db-postgres = "org.postgresql:postgresql:42.7.3"
+db-exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+db-exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+db-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+
+
+# Liquidbase
+liquibase-core = {module = "org.liquibase:liquibase-core", version.ref = "liquibase"}
+liquibase-picocli = "info.picocli:picocli:4.7.5"
+liquibase-snakeyml = "org.yaml:snakeyaml:1.33"
 
 # Testing
 kotest-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
@@ -73,9 +90,11 @@ mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "5.2.
 
 testcontainers-core = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
 testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq", version.ref = "testcontainers" }
+testcontainers-postgres = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
 
 [bundles]
 kotest = ["kotest-junit5", "kotest-core", "kotest-datatest", "kotest-property"]
+exposed = ["db-exposed-core", "db-exposed-dao", "db-exposed-jdbc"]
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -84,6 +103,7 @@ openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-gener
 crowdproj-generator = { id = "com.crowdproj.generator", version = "0.2.0" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 shadowJar = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }
+liquibase = { id = "org.liquibase.gradle", version = "2.2.2" }
 
 # Spring
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

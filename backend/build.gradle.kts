@@ -31,4 +31,7 @@ tasks {
             dependsOn(subprojects.map {  it.getTasksByName(tsk,false)})
         }
     }
+    create("buildImages") {
+        dependsOn(project("app-spring").tasks.getByName("bootBuildImage"))
+    }
 }

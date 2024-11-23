@@ -1,7 +1,7 @@
 import kotlinx.datetime.Clock
 import models.*
 import tech.sergeyev.education.api.logs.models.*
-import tech.sergeyev.education.api.v1.models.PartError
+import models.PartError
 
 fun AppContext.toLog(logId: String) = CommonLogModel(
     messageTime = Clock.System.now().toString(),

@@ -92,7 +92,8 @@ fun AppContext.fromTransport(request: PartReportRequest) {
 }
 
 private fun PartSearchFilter?.toInternal(): Filter = Filter(
-    searchString = this?.searchString ?: ""
+    searchString = this?.searchString ?: "",
+    ownerId = this?.ownerId?.let { UserId(it) } ?: UserId.NONE,
 )
 
 private fun PartCreateObject.toInternal(): Part = Part(

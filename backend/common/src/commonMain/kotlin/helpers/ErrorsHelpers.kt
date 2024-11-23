@@ -2,7 +2,8 @@ package helpers
 
 import AppContext
 import models.State
-import tech.sergeyev.education.api.v1.models.PartError
+import models.PartError
+import tech.sergeyev.education.logging.common.LogLevel
 
 fun Throwable.asPartError(
     code: String = "unknown",
@@ -16,10 +17,16 @@ fun Throwable.asPartError(
     exception = this,
 )
 
-inline fun AppContext.addError(vararg error: PartError) = errors.addAll(error)
+inline fun AppContext.addError(error: PartError) = errors.add(error)
+inline fun AppContext.addErrors(error: Collection<PartError>) = errors.addAll(error)
 
 inline fun AppContext.fail(error: PartError) {
     addError(error)
+    state = State.FAILING
+}
+
+inline fun AppContext.fail(errors: Collection<PartError>) {
+    addErrors(errors)
     state = State.FAILING
 }
 
@@ -36,4 +43,14 @@ inline fun errorValidation(
     field = field,
     group = "validation",
     message = "Validation error for field $field: $description",
+)
+inline fun errorSystem(
+    violationCode: String,
+    level: LogLevel = LogLevel.ERROR,
+    e: Throwable,
+) = PartError(
+    code = "system-$violationCode",
+    group = "system",
+    message = "System error occurred. Our stuff has been informed, please retry later",
+    exception = e,
 )

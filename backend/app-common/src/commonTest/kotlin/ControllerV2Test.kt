@@ -2,7 +2,6 @@ import kotlinx.coroutines.test.runTest
 import mappers.fromTransport
 import mappers.toTransportPart
 import models.Material
-import tech.sergeyev.education.api.v1.models.*
 import tech.sergeyev.education.api.v2.models.*
 import kotlin.test.Test
 import kotlin.test.assertEquals

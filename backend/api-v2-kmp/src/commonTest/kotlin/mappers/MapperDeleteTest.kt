@@ -1,10 +1,9 @@
 package mappers
 
 import AppContext
-import mappers.fromTransport
 import models.*
 import stubs.Stubs
-import tech.sergeyev.education.api.v1.models.PartError
+import models.PartError
 import tech.sergeyev.education.api.v2.models.*
 import kotlin.test.assertEquals
 import kotlin.test.Test

@@ -1,4 +1,4 @@
-package tech.sergeyev.education.api.v1.models
+package models
 
 data class PartError(
     val code: String = "",

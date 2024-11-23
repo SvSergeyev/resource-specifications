@@ -24,3 +24,16 @@ springdoc:
         url: specs-v1.yaml
       - name: v2
         url: specs-v2.yaml
+
+edu-app:
+  repository:
+    test: "inmemory"
+    prod: "$DB_TYPE_PROD:inmemory"
+
+psql:
+  schema: public
+  database: "${EDU_DB:education_parts}"
+  host: "${EDU_DB_HOST:localhost}"
+  port: "${EDU_DB_PORT:5432}"
+  user: "${EDU_DB_USER:postgres}"
+  password: "${EDU_DB_PASS:postgres}"
