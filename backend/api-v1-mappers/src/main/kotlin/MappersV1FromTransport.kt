@@ -94,7 +94,9 @@ fun AppContext.fromTransport(request: PartReportRequest) {
 }
 
 private fun PartSearchFilter?.toInternal(): Filter = Filter(
-    searchString = this?.searchString ?: ""
+    searchString = this?.searchString ?: "",
+    ownerId = this?.ownerId?.let { UserId(it) } ?: UserId.NONE,
+
 )
 
 private fun PartCreateObject.toInternal(): Part = Part(
@@ -114,4 +116,3 @@ private fun PartUpdateObject.toInternal(): Part = Part(
     }?.toMap() ?: mutableMapOf(),
     lock = lock.toPartLock(),
 )
-

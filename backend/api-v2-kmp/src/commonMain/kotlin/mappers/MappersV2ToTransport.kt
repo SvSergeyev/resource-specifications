@@ -3,7 +3,7 @@ package mappers
 import AppContext
 import UnknownCommand
 import models.*
-import tech.sergeyev.education.api.v1.models.PartError
+import models.PartError
 import tech.sergeyev.education.api.v2.models.*
 
 fun AppContext.toTransportPart(): IResponse = when (val cmd = command) {

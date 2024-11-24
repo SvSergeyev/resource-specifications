@@ -3,7 +3,10 @@ import general.operation
 import models.Command
 import models.PartId
 import models.PartLock
+import models.State
+import repo.*
 import stubs.*
+import tech.sergeyev.education.cor.chain
 import tech.sergeyev.education.cor.rootChain
 import tech.sergeyev.education.cor.worker
 import validation.*
@@ -28,6 +31,8 @@ class PartProcessor(
 
     private val businessChain = rootChain {
         initStatus("Инициализация статуса")
+        initRepo("Инициализация репозитория")
+
 
         operation("Создание", Command.CREATE) {
             stubs(stubsHandlingTitle) {
@@ -48,6 +53,13 @@ class PartProcessor(
                 validateDescriptionHasContent(symbolsCheckTitle)
                 finishPartValidation(successValidationTitle)
             }
+            chain {
+                title = "Логика сохранения"
+                repoPrepareCreate("Подготовка объекта для сохранения")
+                repoCreate("Создание в БД")
+            }
+            prepareResult("Подготовка ответа")
+
         }
         operation("Получение", Command.READ) {
             stubs(stubsHandlingTitle) {
@@ -63,6 +75,17 @@ class PartProcessor(
                 validateIdProperFormat(idFormatCheckTitle)
                 finishPartValidation(successValidationTitle)
             }
+            chain {
+                title = "Логика чтения"
+                repoRead("Чтение из БД")
+                worker {
+                    title = "Подготовка ответа для Read"
+                    on { state == State.RUNNING }
+                    handle { partRepoDone = partRepoRead }
+                }
+            }
+            prepareResult("Подготовка ответа")
+
         }
         operation("Изменение", Command.UPDATE) {
             stubs(stubsHandlingTitle) {
@@ -89,6 +112,15 @@ class PartProcessor(
                 validateDescriptionHasContent("Проверка на наличие содержания в описании")
                 finishPartValidation(successValidationTitle)
             }
+            chain {
+                title = "Логика сохранения"
+                repoRead("Чтение из БД")
+                checkLock("Проверяем консистентность по оптимистичной блокировке")
+                repoPrepareUpdate("Подготовка объекта для обновления")
+                repoUpdate("Обновление в БД")
+            }
+            prepareResult("Подготовка ответа")
+
         }
         operation("Удаление", Command.DELETE) {
             stubs(stubsHandlingTitle) {
@@ -109,6 +141,14 @@ class PartProcessor(
                 validateLockProperFormat("Проверка формата lock")
                 finishPartValidation(successValidationTitle)
             }
+            chain {
+                title = "Логика удаления"
+                repoRead("Чтение из БД")
+                repoPrepareDelete("Подготовка объекта для удаления")
+                repoDelete("Удаление из БД")
+            }
+            prepareResult("Подготовка ответа")
+
         }
         operation("Поиск", Command.SEARCH) {
             stubs(stubsHandlingTitle) {
@@ -122,21 +162,8 @@ class PartProcessor(
                 validateSearchStringLength("Валидация длины строки поиска в фильтре")
                 finishPartFilterValidation(successValidationTitle)
             }
-        }
-        operation("Отчет", Command.REPORT) {
-            stubs(stubsHandlingTitle) {
-                stubReportSuccess(successTitle, corSettings)
-                stubValidationBadId(validationErrorTitle + "id")
-                stubDbError(dbErrorTitle)
-                stubNoCase(stubIsUnacceptable)
-            }
-            validation {
-                worker(copyToContextTitle) { partValidating = partRequest.deepCopy() }
-                worker(clearFieldTitle + "id") { partValidating.id = PartId(partValidating.id.asString().trim()) }
-                validateIdNotEmpty(nonEmptyFieldCheckTitle + "id")
-                validateIdProperFormat(idFormatCheckTitle)
-                finishPartValidation(successValidationTitle)
-            }
+            repoSearch("Поиск в БД по фильтру")
+            prepareResult("Подготовка ответа")
         }
     }.build()
 }

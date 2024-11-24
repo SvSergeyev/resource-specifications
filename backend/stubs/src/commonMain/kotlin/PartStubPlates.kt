@@ -1,7 +1,4 @@
-import models.Material
-import models.Part
-import models.PartId
-import models.UserId
+import models.*
 
 object PartStubPlates {
     val STUB_PLATE: Part
@@ -11,5 +8,6 @@ object PartStubPlates {
             description = "so sad",
             ownerId = UserId("user-1"),
             materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
+            lock = PartLock("123-234-abc-ABC"),
         )
 }

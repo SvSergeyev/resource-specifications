@@ -24,6 +24,8 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 include(":api-v1-jackson")
 include(":api-v1-mappers")
 include(":api-v2-kmp")
@@ -36,3 +38,9 @@ include(":stubs")
 include(":app-common")
 include(":app-spring")
 include(":app-rabbit")
+
+include(":repo-common")
+include(":repo-inmemory")
+include(":repo-stubs")
+include(":repo-tests")
+include(":repo-postgres")

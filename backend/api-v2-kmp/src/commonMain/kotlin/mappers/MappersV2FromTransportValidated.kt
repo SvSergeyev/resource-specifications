@@ -4,7 +4,7 @@ import AppContext
 import models.Command
 import models.State
 import stubs.Stubs
-import tech.sergeyev.education.api.v1.models.PartError
+import models.PartError
 import tech.sergeyev.education.api.v2.models.PartCreateRequest
 
 // Демонстрация форматной валидации в мапере

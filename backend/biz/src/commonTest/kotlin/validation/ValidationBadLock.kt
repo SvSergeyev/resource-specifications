@@ -13,13 +13,7 @@ fun validationLockCorrect(command: Command, processor: PartProcessor) = runTest 
         command = command,
         state = State.NONE,
         workMode = WorkMode.TEST,
-        partRequest = Part(
-            id = PartId("123-234-abc-ABC"),
-            name = "abc",
-            description = "abc",
-            materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
-            lock = PartLock("123-234-abc-ABC"),
-        ),
+        partRequest = PartStub.get(),
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -31,13 +25,9 @@ fun validationLockTrim(command: Command, processor: PartProcessor) = runTest {
         command = command,
         state = State.NONE,
         workMode = WorkMode.TEST,
-        partRequest = Part(
-            id = PartId("123-234-abc-ABC"),
-            name = "abc",
-            description = "abc",
-            materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
-            lock = PartLock(" \n\t 123-234-abc-ABC \n\t "),
-        ),
+        partRequest = PartStub.prepareResult {
+            lock = PartLock(" \n\t 123-234-abc-ABC \n\t ")
+        },
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -49,13 +39,9 @@ fun validationLockEmpty(command: Command, processor: PartProcessor) = runTest {
         command = command,
         state = State.NONE,
         workMode = WorkMode.TEST,
-        partRequest = Part(
-            id = PartId("123-234-abc-ABC"),
-            name = "abc",
-            description = "abc",
-            materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
-            lock = PartLock(""),
-        ),
+        partRequest = PartStub.prepareResult {
+            lock = PartLock("")
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
@@ -70,13 +56,9 @@ fun validationLockFormat(command: Command, processor: PartProcessor) = runTest {
         command = command,
         state = State.NONE,
         workMode = WorkMode.TEST,
-        partRequest = Part(
-            id = PartId("123-234-abc-ABC"),
-            name = "abc",
-            description = "abc",
-            materials = mapOf(Material.STEEL_PLATE_3 to 0.1),
-            lock = PartLock("!@#\$%^&*(),.{}"),
-        ),
+        partRequest = PartStub.prepareResult {
+            lock = PartLock("!@#\$%^&*(),.{}")
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
